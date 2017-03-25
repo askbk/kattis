@@ -12,10 +12,10 @@ int main(){
   vector< vector<int> > edge;
   edge.resize(C+1);
 
-  bool leaving[C+1];
   bool visited[C+1];
-  memset(leaving, 0, sizeof leaving);
+  int leavingPartners[C+1];
   memset(visited, 0, sizeof visited);
+  memset(leavingPartners, 0, sizeof leavingPartners);
 
   queue<int> que;
 
@@ -25,45 +25,29 @@ int main(){
     edge[b].push_back(a);
   }
 
-  int temp = edge[L].size();
-  for (size_t i = 0; i < temp; i++) {
-    int current = edge[L][i];
-    que.push(current);
-  }
+  que.push(L);
 
-  leaving[L] = true;
-
-  while (!que.empty()) {
+  while (!que.empty() && !visited[X]) {
     int current = que.front();
     que.pop();
+    if (visited[current]) {
+      continue;
+    }
     visited[current] = true;
-    int partners = edge[current].size(), leavingPartners = 0;
 
-    for (size_t i = 0; i < partners; i++) {
+    for (size_t i = 0; i < edge[current].size(); i++) {
       int temp = edge[current][i];
-      if (leaving[temp]) {
-        ++leavingPartners;
-      }
-
-      if (!visited[temp]) {
+      leavingPartners[temp] += 1;
+      if (2*leavingPartners[temp] >= edge[temp].size()) {
         que.push(temp);
       }
     }
-
-    if (leavingPartners>=(partners/2 + partners%2)) {
-      leaving[current] = true;
-    }
-
-    if (current == X && leaving[current]) {
-      cout << "leave";
-      return 0;
-    }
   }
 
-  if (!leaving[X]) {
-    cout << "stay";
+  if (!visited[X]) {
+    cout << "stay\n";
   } else {
-    cout << "leave";
+    cout << "leave\n";
   }
   return 0;
 }

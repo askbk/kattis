@@ -38,7 +38,7 @@ int main(){
     } else if (army[0].empty()){
       cout << "MechaGodzilla\n";
     } else {
-      cout << "Godzilla";
+      cout << "Godzilla\n";
     }
   }
   return 0;

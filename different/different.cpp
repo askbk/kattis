@@ -4,9 +4,7 @@ using namespace std;
 
 int main(){
   long long a, b;
-  long long n;
-  while(scanf("%d" , n) != EOF) {
-    cin >> a >> b;
+  while(scanf("%lld %lld", &a, &b) != EOF) {
     cout << abs(a-b) << "\n";
   }
 }

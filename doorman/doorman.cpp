@@ -13,10 +13,7 @@ int main(){
   cin >> X >> line;
   int lineLength = line.length();
   int diff = 0;
-  while(diff <= X && lineLength>0){
-    if (diff==X && line[0]==line[1]) {
-      break;
-    }
+  while(lineLength>0){
     if (count[line[0]]<count[line[1]]) {
       count[line[0]] += 1;
       line.erase(0, 1);
@@ -26,7 +23,10 @@ int main(){
     }
     lineLength = line.length();
     diff = abs(count['W'] - count['M']);
-    cout << "diff: " << diff << "\n";
+    if (diff>X) {
+      cout << count['W'] + count['M'] - 1 << "\n";
+      return 0;
+    }
   }
   cout << count['W'] + count['M'] << "\n";
 }

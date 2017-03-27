@@ -10,12 +10,11 @@ int main(){
   for (size_t i = 0; i < T+1; i++) {
     string input;
     getline(cin, input);
-    if (input.length() < 10) {
+    if (input.substr(0,10) == "simon says") {
+      cout << input.substr(11, 1000) << "\n";
+    } else {
       cout << "\n";
       continue;
-    }
-    if (input.substr(0,10) == "Simon says") {
-      cout << input.substr(11, 1000) << "\n";
     }
   }
   return 0;

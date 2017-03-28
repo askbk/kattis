@@ -18,6 +18,9 @@ int main(){
       count[line[0]] += 1;
       line.erase(0, 1);
     } else {
+      if (line[0]==line[1] && diff == X && line[0]==max(count['W'], count['M'])) {
+        break;
+      }
       count[line[1]] += 1;
       line.erase(1, 1);
     }

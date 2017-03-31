@@ -1,25 +1,21 @@
 #include <iostream>
-#include <map>
+#include <queue>
 #include <string>
 
 using namespace std;
 
 # define MAX 100000
 
+struct Candidate{
+  string name;
+  int votes;
+  Candidate(string){}
+};
+
 int main(){
-  map<string, int> candidates;
-  map<string, int>::iterator it;
+  priority_queue<Candidate> prique;
   string input;
-  for (size_t i = 0; i < MAX; i++) {
-    cin >> input;
-    if (input == "***") {
-      break;
-    }
-    it = candidates.find(input);
-    if (it==candidates.end()) {
-      candidates.insert(input, 1)
-    } else {
-      candidates[input] += 1;
-    }
+  while (scanf("%s", &input) != "***") {
+    candidates[input] += 1;
   }
 }

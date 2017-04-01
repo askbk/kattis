@@ -5,15 +5,12 @@
 using namespace std;
 
 int main(){
-  int N, M, m, input, d = 0;
-  bool done;
+  int N, M, m, input = 0, d = 0;
   cin >> N;
   while (N--) {
-    done = false;
     cin >> M;
     m = M;
     vector<int> seq;
-    seq.resize(M);
     while (m--) {
       cin >> input;
       seq.push_back(input);
@@ -21,28 +18,27 @@ int main(){
 
     d = seq[1] - seq[0];
     for (size_t i = 2; i < M; i++) {
-      if (seq[i] - seq[i-1] != d) {
-        break;
-      }
-      if (i==M-1) {
-        cout << "arithmetic\n";
-        done = true;
+      if ((seq[i] - seq[i-1]) != d) {
+        goto next;
       }
     }
-    if (done) {
-      continue;
-    }
+    cout << "arithmetic\n";
+    goto end;
+    next:
+
     sort(seq.begin(), seq.end());
     d = seq[1] - seq[0];
     for (size_t i = 2; i < M; i++) {
       if (seq[i] - seq[i-1] != d) {
         cout << "non-arithmetic\n";
-        break;
+        goto end;
       }
       if (i==M-1) {
         cout << "permuted arithmetic\n";
-        done = true;
+        goto end;
       }
     }
+    end:
+    cout << "";
   }
 }

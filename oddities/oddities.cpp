@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main(){
+int main() {
   int N, input;
   cin >> N;
   for (size_t i = 0; i < N; i++) {

@@ -3,9 +3,9 @@
 
 using namespace std;
 
-struct Node{
+struct Node {
   int idx, height, previousIdx;
-  Node(int _idx, int _height, int _previousIdx){
+  Node(int _idx, int _height, int _previousIdx) {
     idx = _idx;
     height = _height;
     previous = _previousIdx;
@@ -22,17 +22,15 @@ int main(){
   balloon[0] = Node(0, H, -1);
   que.push(balloon[0]);
   for (size_t i = 1; i < N; i++) {
-    previous = balloon[i-1];
-    first
-    cin >> H;
+    previous = balloon[i - 1];
+    first cin >> H;
     node frontQue = que.front();
-    if (frontQue.height+1 == H) {
+    if (frontQue.height + 1 == H) {
       node current = Node(i, H, frontQue.idx);
       que.push(current);
       que.pop();
       balloon[i] = current;
-    } else if (balloon[previous].height+1 == H) {
-
+    } else if (balloon[previous].height + 1 == H) {
     }
   }
 }

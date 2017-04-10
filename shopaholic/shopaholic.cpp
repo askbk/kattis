@@ -1,14 +1,12 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-bool wayToSort(int a, int b){
-  return a>b;
-}
+bool wayToSort(int a, int b) { return a > b; }
 
-int main(){
+int main() {
   int N, n, p;
   long long discount = 0;
   vector<int> item;
@@ -19,7 +17,7 @@ int main(){
     item.push_back(p);
   }
   sort(item.begin(), item.end(), wayToSort);
-  for (size_t i = 2; i < N; i+=3) {
+  for (size_t i = 2; i < N; i += 3) {
     discount += item[i];
   }
   cout << discount << "\n";

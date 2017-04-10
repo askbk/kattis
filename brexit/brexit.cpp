@@ -1,19 +1,19 @@
-#include <iostream>
-#include <vector>
 #include <cstring>
+#include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
-int main(){
+int main() {
   int C, P, X, L, a, b;
   cin >> C >> P >> X >> L;
 
-  vector< vector<int> > edge;
-  edge.resize(C+1);
+  vector<vector<int>> edge;
+  edge.resize(C + 1);
 
-  bool visited[C+1];
-  int leavingPartners[C+1];
+  bool visited[C + 1];
+  int leavingPartners[C + 1];
   memset(visited, 0, sizeof visited);
   memset(leavingPartners, 0, sizeof leavingPartners);
 
@@ -38,7 +38,7 @@ int main(){
     for (size_t i = 0; i < edge[current].size(); i++) {
       int temp = edge[current][i];
       leavingPartners[temp] += 1;
-      if (2*leavingPartners[temp] >= edge[temp].size()) {
+      if (2 * leavingPartners[temp] >= edge[temp].size()) {
         que.push(temp);
       }
     }

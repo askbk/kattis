@@ -2,9 +2,9 @@
 
 using namespace std;
 
-int main(){
+int main() {
   long long a, b;
-  while(scanf("%lld %lld", &a, &b) != EOF) {
-    cout << abs(a-b) << "\n";
+  while (scanf("%lld %lld", &a, &b) != EOF) {
+    cout << abs(a - b) << "\n";
   }
 }

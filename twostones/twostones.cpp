@@ -2,10 +2,10 @@
 
 using namespace std;
 
-int main(){
+int main() {
   int N;
   cin >> N;
-  if (N%2==0) {
+  if (N % 2 == 0) {
     cout << "Bob";
   } else {
     cout << "Alice";

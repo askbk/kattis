@@ -1,10 +1,10 @@
-#include <iostream>
 #include <cstring>
+#include <iostream>
 #include <queue>
 
 using namespace std;
 
-int main(){
+int main() {
   priority_queue<int> lowest;
   int N, H, arrows = 0;
   cin >> N;
@@ -26,17 +26,17 @@ int main(){
     int low = lowest.top();
     lowest.pop();
     cout << "arrowHeight: " << arrowHeight << "\n";
-    for (size_t i = 0; i < N && arrowHeight>=low; i++) {
-      if (!shot[i] && arrowHeight==balloon[i]) {
+    for (size_t i = 0; i < N && arrowHeight >= low; i++) {
+      if (!shot[i] && arrowHeight == balloon[i]) {
         arrowHeight--;
         cout << "arrowHeight: " << arrowHeight << "\n";
         shot[i] = true;
         balloonsLeft--;
-        if (balloon[i]==-low) {
+        if (balloon[i] == -low) {
           low = lowest.top();
           lowest.pop();
         }
-      } else if (firstNotShot == -1){
+      } else if (firstNotShot == -1) {
         firstNotShot = i;
       }
     }

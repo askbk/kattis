@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
 #include <map>
+#include <string>
 using namespace std;
 int main() {
   string input;
@@ -34,14 +34,14 @@ int main() {
   alphabet['z'] = "2";
   getline(cin, input);
 
-  for (char c : input ) {
+  for (char c : input) {
     if ((isalpha(c))) {
       output.append(alphabet[tolower(c)]);
     } else {
       output.push_back(c);
     }
   }
-  
+
   std::cout << output << '\n';
   return 0;
 }

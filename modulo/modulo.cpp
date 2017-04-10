@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(){
+int main() {
   priority_queue<int> prique;
   int input, count = 0;
   for (size_t i = 0; i < 10; i++) {
@@ -14,7 +14,7 @@ int main(){
   for (size_t i = 0; i < 10; i++) {
     int current = prique.top();
     prique.pop();
-    if (current!=previous) {
+    if (current != previous) {
       count++;
     }
     previous = current;

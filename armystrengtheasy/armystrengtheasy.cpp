@@ -3,12 +3,12 @@
 
 using namespace std;
 
-int main(){
+int main() {
   int T, G, M;
   cin >> T;
 
   while (T--) {
-    priority_queue<int> army[2]; //0 = godzilla, 1 = mecha
+    priority_queue<int> army[2]; // 0 = godzilla, 1 = mecha
     cin >> G >> M;
     while (G--) {
       int input;
@@ -25,9 +25,9 @@ int main(){
     while (!army[0].empty() && !army[1].empty()) {
       int gArmy = army[0].top();
       int mArmy = army[1].top();
-      if (gArmy==mArmy) {
+      if (gArmy == mArmy) {
         army[1].pop();
-      } else if (gArmy > mArmy) { //gArmy er svakere
+      } else if (gArmy > mArmy) { // gArmy er svakere
         army[0].pop();
       } else {
         army[1].pop();
@@ -35,7 +35,7 @@ int main(){
     }
     if (army[0].empty() && army[1].empty()) {
       cout << "uncertain\n";
-    } else if (army[0].empty()){
+    } else if (army[0].empty()) {
       cout << "MechaGodzilla\n";
     } else {
       cout << "Godzilla\n";

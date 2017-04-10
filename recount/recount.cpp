@@ -4,15 +4,15 @@
 
 using namespace std;
 
-# define MAX 100000
+#define MAX 100000
 
-struct Candidate{
+struct Candidate {
   string name;
   int votes;
-  Candidate(string){}
+  Candidate(string) {}
 };
 
-int main(){
+int main() {
   priority_queue<Candidate> prique;
   string input;
   while (scanf("%s", &input) != "***") {

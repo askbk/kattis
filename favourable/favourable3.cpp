@@ -1,22 +1,22 @@
-#include <iostream>
-#include <vector>
-#include <string>
 #include <cstring>
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
 long long paths[401][401];
-vector< vector <int> > node;
+vector<vector<int>> node;
 
-long long DFS(int u, int t){
+long long DFS(int u, int t) {
   if (u == t) {
     return 1;
   }
-  if (paths[u][t]!=-1) {
+  if (paths[u][t] != -1) {
     return paths[u][t];
   }
   int temp = node[u].size();
-  if (temp==0) {
+  if (temp == 0) {
     paths[u][t] = 0;
     return 0;
   }
@@ -28,7 +28,7 @@ long long DFS(int u, int t){
   return nPaths;
 }
 
-int main(){
+int main() {
   int T, S;
   cin >> T;
   while (T--) {

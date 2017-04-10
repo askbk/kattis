@@ -1,10 +1,10 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-int main(){
+int main() {
   int N, M, m, input = 0, d = 0;
   cin >> N;
   while (N--) {
@@ -18,27 +18,27 @@ int main(){
 
     d = seq[1] - seq[0];
     for (size_t i = 2; i < M; i++) {
-      if ((seq[i] - seq[i-1]) != d) {
+      if ((seq[i] - seq[i - 1]) != d) {
         goto next;
       }
     }
     cout << "arithmetic\n";
     goto end;
-    next:
+  next:
 
     sort(seq.begin(), seq.end());
     d = seq[1] - seq[0];
     for (size_t i = 2; i < M; i++) {
-      if (seq[i] - seq[i-1] != d) {
+      if (seq[i] - seq[i - 1] != d) {
         cout << "non-arithmetic\n";
         goto end;
       }
-      if (i==M-1) {
+      if (i == M - 1) {
         cout << "permuted arithmetic\n";
         goto end;
       }
     }
-    end:
+  end:
     cout << "";
   }
 }

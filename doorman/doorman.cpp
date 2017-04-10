@@ -1,10 +1,10 @@
 #include <iostream>
-#include <string>
 #include <map>
+#include <string>
 
 using namespace std;
 
-int main(){
+int main() {
   int X;
   map<char, int> count;
   count['W'] = 0;
@@ -13,12 +13,13 @@ int main(){
   cin >> X >> line;
   int lineLength = line.length();
   int diff = 0;
-  while(lineLength>0){
-    if (count[line[0]]<count[line[1]]) {
+  while (lineLength > 0) {
+    if (count[line[0]] < count[line[1]]) {
       count[line[0]] += 1;
       line.erase(0, 1);
     } else {
-      if (line[0]==line[1] && diff == X && line[0]==max(count['W'], count['M'])) {
+      if (line[0] == line[1] && diff == X &&
+          line[0] == max(count['W'], count['M'])) {
         break;
       }
       count[line[1]] += 1;
@@ -26,7 +27,7 @@ int main(){
     }
     lineLength = line.length();
     diff = abs(count['W'] - count['M']);
-    if (diff>X) {
+    if (diff > X) {
       cout << count['W'] + count['M'] - 1 << "\n";
       return 0;
     }

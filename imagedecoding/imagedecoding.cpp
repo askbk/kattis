@@ -1,22 +1,60 @@
+#include <cstring>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-int main(){
+int main() {
   string input;
-  char tegn[2] = {'.', '#'};
-  bool turn = false;
-  int n;
+  char current;
+  int n, places;
 
   cin >> n;
-  while (n!=0) {
-    while (n--) {
+  while (n != 0) {
+    int prevLength = 0;
+    bool error = false;
+    n++;
+    while (n != 0) {
+      int curLength = 0;
       getline(cin, input);
-      int length = input.length();
-      for (size_t i = 2; i < length; i+=2) {
-        int current = (i*2)%2;
+      int strLength = input.length(), number;
+
+      current = input[0];
+      for (size_t i = 2; i < strLength; i++) {
+        if (input[i] == ' ') {
+          continue;
+        }
+        places = 0;
+        for (size_t j = 0; j < 3; j++) {
+          if (input[i + j] == ' ') {
+            break;
+          }
+          ++places;
+        }
+        number = stoi(input.substr(i, places));
+
+        i += places - 1;
+        for (size_t j = 0; j < number; j++) {
+          cout << current;
+          curLength++;
+        }
+        if (current == '.') {
+          current = '#';
+        } else {
+          current = '.';
+        }
       }
+      if (prevLength == 0) {
+        prevLength = curLength;
+      } else if (prevLength != curLength) {
+        error = true;
+      }
+      cout << "\n";
+      n--;
     }
+    if (error) {
+      cout << "Error decoding image\n";
+    }
+    cin >> n;
   }
 }

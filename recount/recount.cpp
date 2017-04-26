@@ -1,20 +1,12 @@
 #include <iostream>
-#include <queue>
+#include <map>
 #include <string>
 
 using namespace std;
 
-#define MAX 100000
-
-struct Candidate {
-  string name;
-  int votes;
-  Candidate(string) {}
-};
-
 int main() {
-  priority_queue<Candidate> prique;
   string input;
+  map<string, int> map;
   while (scanf("%s", &input) != "***") {
     candidates[input] += 1;
   }

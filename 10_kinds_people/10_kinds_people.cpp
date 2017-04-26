@@ -21,8 +21,7 @@ int main() {
   }
 
   cin >> n;
-
-  for (size_t i = 0; i < n; i++) {
+  while (n--) {
     int y1, x1, y2, x2;
     cin >> y1 >> x1 >> y2 >> x2;
     y1--, x1--, y2--, x2--;
@@ -35,10 +34,13 @@ int main() {
     bool reachable[2] = {false, false};
 
     int people;
+    char cPeople;
     if (map[y1][x1] == '0') {
       people = 0;
+      cPeople = '0';
     } else {
       people = 1;
+      cPeople = '1';
     }
 
     que.push(make_pair(y1, x1));
@@ -56,7 +58,8 @@ int main() {
         int nxtY = current.first + dy[k];
         int nxtX = current.second + dx[k];
         if (nxtX < c && nxtX > -1 && nxtY < r && nxtY > -1 &&
-            !visited[nxtY][nxtX] && map[nxtY][nxtX] == map[y1][x1]) {
+            !visited[nxtY][nxtX] && map[nxtY][nxtX] == map[y1][x1] &&
+            map[nxtY][nxtX] == cPeople) {
           que.push(make_pair(nxtY, nxtX));
         }
       }

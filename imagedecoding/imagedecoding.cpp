@@ -7,7 +7,8 @@ using namespace std;
 int main() {
   string input;
   char current;
-  int n, places;
+  int n = 0, places;
+  bool first = true;
 
   cin >> n;
   while (n != 0) {
@@ -49,7 +50,11 @@ int main() {
       } else if (prevLength != curLength) {
         error = true;
       }
-      cout << "\n";
+      if (first) {
+        first = false;
+      } else {
+        cout << "\n";
+      }
       n--;
     }
     if (error) {

@@ -65,7 +65,7 @@ int main() {
   for (int i = 0; i < r; i++) {
     for (size_t j = 0; j < c; j++) {
       cin >> map[i][j];
-      if (i != 0) {
+      if (i != 0) {''
         if (map[i - 1][j] == map[i][j]) {
           UF.unionSet(make_pair(i - 1, j), make_pair(i, j));
         }

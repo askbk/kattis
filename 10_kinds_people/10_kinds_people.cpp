@@ -7,75 +7,65 @@
 using namespace std;
 
 int main() {
-  int r, c, n;
-  int dx[] = {-1, 0, 1, 0}; // bevegelser
-  int dy[] = {0, -1, 0, 1};
-  cin >> r >> c;
-  string map[r], input;  // kart
-  bool visited[r][c][2];
-  for (int i = 0; i < r; i++) {
-    cin >> map[i];
-  }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int r, c, n;
+    int dx[] = {-1, 0, 1, 0}; // bevegelser
+    int dy[] = {0, -1, 0, 1};
+    cin >> r >> c;
+    string map[r], input;  // kart
+    int areas[r][c]; // hvilke områder som kan nå hverandre
+    bool visited[r][c];
+    int area = 3;
 
-  cin >> n;
-  while (n--) {
-    memset(visited, 0, sizeof visited);
-    int y1, x1, y2, x2;
-
-    cin >> y1 >> x1 >> y2 >> x2;
-    y1--, x1--, y2--, x2--;
-
-    if (map[y1][x1] != map[y2][x2]) {
-      cout << "neither\n" << endl;
-      continue;
+    for (int i = 0; i < r; i++) {
+        cin >> map[i];
     }
 
-    queue<pair<int, int>> que[2];
-    bool reachable[2] = {false, false};
+    for(int l = 0; l < r; ++l){
+        for(int m = 0; m < c; ++m){
+            if(!visited[l][m]){
+                queue<pair<int, int>> que;
+                
+                que.push(make_pair(l, m));
+                
+                while (!que.empty()) {
+                    pair<int, int> current = que.front();
+                    que.pop();
 
-    int people;
-    char cPeople = map[y1][x1];
+                    areas[current.first][current.second] = area;
 
-    if (cPeople == '0') {
-      people = 0;
-    } else {
-      people = 1;
-    }
-
-    que[0].push(make_pair(y1, x1));
-    que[1].push(make_pair(y2, x2));
-
-    while (!que[0].empty() && !que[1].empty()) {
-      for (size_t i = 0; i < 2; i++) {
-        pair<int, int> current = que[i].front();
-        que[i].pop();
-        if (visited[current.first][current.second][(i + 1) % 2]) {
-          reachable[people] = true;
-          break;
+                    for (size_t k = 0; k < 4; k++) {
+                        int nxtY = current.first + dy[k];
+                        int nxtX = current.second + dx[k];
+                        if (nxtX < c && nxtX > -1 && nxtY < r && nxtY > -1 &&
+                            !visited[nxtY][nxtX] && map[l][m] == map[nxtY][nxtX]) {
+                            que.push(make_pair(nxtY, nxtX));
+                            visited[nxtY][nxtX] = true;
+                        }
+                    }      
+                }
+                ++area;
+            }
         }
+    }
 
-        for (size_t k = 0; k < 4; k++) {
-          int nxtY = current.first + dy[k];
-          int nxtX = current.second + dx[k];
-          if (nxtX < c && nxtX > -1 && nxtY < r && nxtY > -1 &&
-              !visited[nxtY][nxtX][i] && map[nxtY][nxtX] == cPeople) {
-            que[i].push(make_pair(nxtY, nxtX));
-            visited[nxtY][nxtX][i] = true;
-          }
+
+
+
+    cin >> n;
+    while (n--) {
+        int y1, x1, y2, x2;
+
+        cin >> y1 >> x1 >> y2 >> x2;
+        y1--, x1--, y2--, x2--;
+
+        if(areas[y1][x1] == areas[y2][x2]){
+            if(map[y1][x1] == '0') cout << "binary\n";
+            else cout << "decimal\n";
+        }else{
+            cout << "neither\n";
         }
-      }
-      if (reachable[people]) {
-        break;
-      }
     }
-
-    if (!reachable[0] && !reachable[1]) {
-      cout << "neither\n";
-    } else if (reachable[1]) {
-      cout << "decimal\n";
-    } else {
-      cout << "binary\n";
-    }
-  }
-  return 0;
+    return 0;
 }

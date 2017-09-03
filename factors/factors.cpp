@@ -1,37 +1,57 @@
 #include <iostream>
 #include <cmath>
-#include <cstring>
 #include <vector>
 
 using namespace std;
 
+long long divFak(const int a, const int b){
+    int m = a, n = b;
+    long long ans = 1;
+    while(m > 1 || n > 1){
+        if(m > 1){
+            ans *= m;
+            --m;
+            ans *= m;
+            --m;
+        }
+        if(n > 1){
+            ans /= n;
+            --n;
+            ans /= n;
+            --n;
+        }
+    }
+    return ans;
+}
+
 int main(){
-    double maxT = pow(2, 63);
-    long long max = maxT;
-    long long ceiling = floor(sqrt(max))+1;
-    bool prime[max];
+    int ceiling = 1000;
+    bool prime[ceiling];
     vector<int> primeList;
     primeList.push_back(2);
-    //memset(prime, 1, sizeof prime);
-
-    for(int i = 3; i <= max; i += 2){
+    
+    for(int i = 3; i <= ceiling; i += 2){
      	prime[i] = true;
     }
     
+    cout << "prep done\n";
     for(int i = 3; i <= ceiling; i += 2){   //  finner primtall
       	if(prime[i]){
-            primeList.push_back(prime[i]);
-            for(int j = i; j * i <= max; ++j){
+            primeList.push_back(i);
+            if(primeList.size() == 63) break;
+            for(int j = i; j * i <= ceiling; ++j){
                 prime[i * j] = false;
             }
         }
     }
-
-    int primeN = primeList.size(), N;
+    cout << "primefinding finished\n";
+    int primeN = 63;
+    long long N;
     while(cin >> N){
         vector<int> powers;
         int currentP = 0;
         long long temp;
+
         for(int i = 0; i < primeN; ++i){    //  finner primfaktorene til N
             if(N % primeList[i] == 0){
                 powers.push_back(1);
@@ -43,6 +63,7 @@ int main(){
                 ++currentP;
             }
         }
+
         temp = 1;
         int totalP = powers.size(), current = powers.size();
         for(int i = 0; i < totalP; ++i){    // tar fakultet av antall primfaktorer, delt på produktet av fakultetene til antall av hver unike primfaktor

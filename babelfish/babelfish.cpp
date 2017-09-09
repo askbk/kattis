@@ -5,19 +5,20 @@
 using namespace std;
 
 int main() {
-  string input1, input2;
-  map<string, string> dictionary;
-  cin >> input1 >> input2;
-  while (!input1.empty() && !input2.empty()) {
-    dictionary[input2] = input1;
-    cin >> input1 >> input2;
-  }
-
-  while (cin >> input1) {
-    if (dictionary.count(input1)!=0) {
-      cout << dictionary[input1] << "\n";
-    } else {
-      cout << "eh\n";
+    string input;
+    map<string, string> dictionary;
+    while (getline(cin, input)) {
+        if(!input.empty()){
+            size_t found = input.find(" ");
+            if(found != string::npos){
+                dictionary[input.substr(found+1)] = input.substr(0, found);
+            } else {
+                if(dictionary.count(input) == 0){
+                    cout << "eh\n";
+                }else{
+                    cout << dictionary[input] << "\n";
+                }
+            }
+        }
     }
-  }
 }

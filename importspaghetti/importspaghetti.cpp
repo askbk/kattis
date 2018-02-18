@@ -26,7 +26,7 @@ State::State(vector<int> _v, int n){
 int main(){
     int N, shortestCycle = -1, temp;
     vector< vector<int> > node; //contains all nodes
-    vector< vector<int> > cycle;//contains all cycles
+    vector< vector<int> > cycle;//contains some cycles
     map<int, string> nodeName;  //contains filenames
     map<string, int> nodeValue; //contains filenumbers
     string input;
@@ -42,14 +42,26 @@ int main(){
     }
 
     for(int i = 0; i < N; ++i){
-        cin >> input >> temp;   //ignore filename and "import"
-        cin >> input;
+        cin >> input >> temp;
 
-        while(temp--){
+        while(temp){
             cin >> input;
-            node[i].push_back(nodeValue[input]);
+
+            if(input == "import"){
+                continue;
+            } else {
+                --temp;
+                int size = input.size();
+
+                if(input[size - 1] == ','){
+                    --size;
+                }
+                node[i].push_back(nodeValue[input.substr(0, size)]);
+            }
         }
     }
+
+    cout << "finished input\n";
 
     for(int i = 0; i < N; ++i){
         queue<State> que;
@@ -67,6 +79,7 @@ int main(){
                 if(size < cycle[shortestCycle].size()){
                     cycle.push_back(currentState.visited);
                     ++shortestCycle;
+                    cout << size << "\n";
                 }
                 continue;
             }
@@ -75,7 +88,9 @@ int main(){
 
             for(int j = 0; j < neighbours; ++j){
                 int next = node[currentNode][j];
-                que.push(State(currentState.visited, next));
+                if(find(currentState.visited.begin(), currentState.visited.end(), next) == currentState.visited.end()){
+                    que.push(State(currentState.visited, next));
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <sstream>
 #include <string>
 #include <map>
 #include <algorithm>
@@ -23,12 +24,16 @@ State::State(vector<int> _v, int n){
     visited.push_back(n);
 }
 
+bool IsTrash(string c){
+    return c == ",";
+}
+
 int main(){
     int N, shortestCycle = -1, temp;
-    vector< vector<int> > node; //contains all nodes
-    vector< vector<int> > cycle;//contains some cycles
-    map<int, string> nodeName;  //contains filenames
-    map<string, int> nodeValue; //contains filenumbers
+    vector< vector<int> > node; //contains all nodes (relations)
+    vector< vector<int> > cycle;//contains some cycles. last one is always the shortest cycle.
+    map<int, string> nodeName;  //contains filenames (names of the nodes)
+    map<string, int> nodeValue; //contains maps each nodename to its respective number
     string input;
 
     cin >> N;
@@ -42,31 +47,44 @@ int main(){
     }
 
     for(int i = 0; i < N; ++i){
-        cin >> input >> temp;
+        cin >> input >> temp;   //nodename is discarded; they are inputted in correct order anyway
+        //cout << "temp" <<  temp << "\n";
 
-        while(temp){
-            cin >> input;
+        while(temp--){  //inputs each import line
+            cin >> input;   //ignore "import"
+            getline(cin, input);
 
-            if(input == "import"){
-                continue;
-            } else {
-                --temp;
-                int size = input.size();
-
-                if(input[size - 1] == ','){
-                    --size;
-                }
-                node[i].push_back(nodeValue[input.substr(0, size)]);
+            size_t last = 0;
+            size_t next = 0; 
+            
+            while ((next = input.find(", ", last)) != string::npos) { 
+                node[i].push_back(nodeValue[input.substr(last + 1, next - last - 1)]);
+                cout << input.substr(last + 1, next - last - 1) << "\n";;
+                last = next + 1; 
             }
+            
+            cout << input.substr(last + 1, next - last) << "\n";
+            node[i].push_back(nodeValue[input.substr(last)]);
         }
     }
 
     cout << "finished input\n";
+    for(int i = 0; i < N; ++i){
+        for(int j = 0; j < node[i].size(); ++j){
+            cout << nodeName[node[i][j]];
+        }
+    };
 
     for(int i = 0; i < N; ++i){
+        for(int j = 0; j < node[i].size(); ++j){
+            cout << "node " << nodeName[i] << " imports: " << nodeName[node[i][j]] << " " << node[i][j] << "\n";
+        }
+    }
+
+    for(int startNode = 0; startNode < N; ++startNode){
         queue<State> que;
 
-        que.push(State(i));
+        que.push(State(startNode));
 
         while(!que.empty()){
             State currentState = que.front();
@@ -86,8 +104,8 @@ int main(){
 
             int neighbours = node[currentNode].size();
 
-            for(int j = 0; j < neighbours; ++j){
-                int next = node[currentNode][j];
+            for(int i = 0; i < neighbours; ++i){
+                int next = node[currentNode][i];
                 if(find(currentState.visited.begin(), currentState.visited.end(), next) == currentState.visited.end()){
                     que.push(State(currentState.visited, next));
                 }
